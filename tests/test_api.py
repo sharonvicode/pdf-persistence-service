@@ -43,3 +43,13 @@ def test_create_extraction_rejects_invalid_data_with_422(payload):
     response = client.post("/extractions", json=payload)
 
     assert response.status_code == 422
+
+
+def test_get_extraction_returns_200_with_stored_data():
+    created = client.post("/extractions", json=VALID_PAYLOAD)
+    extraction_id = created.json()["id"]
+
+    response = client.get(f"/extractions/{extraction_id}")
+
+    assert response.status_code == 200
+    assert response.json() == {"id": extraction_id, **VALID_PAYLOAD}
