@@ -1,41 +1,41 @@
 # PDF Persistence — TASKS
 
-## 🎯 Día Objetivo 1 — API y persistencia básica
+## Objetivo 1 — API y persistencia básica
 
 ### POST `/extractions`
 
-* [ ] Crear tests para registrar una extracción.
-* [ ] Verificar respuesta `201 Created`.
-* [ ] Verificar generación del `id`.
-* [ ] Verificar validaciones de datos.
-* [ ] Crear DTO de entrada.
-* [ ] Crear DTO de respuesta.
-* [ ] Implementar `ExtractionService`.
-* [ ] Definir la abstracción `ExtractionRepository`.
-* [ ] Implementar `InMemoryExtractionRepository`.
-* [ ] Implementar endpoint `POST /extractions`.
+* [X] Crear tests para registrar una extracción.
+* [X] Verificar respuesta `201 Created`.
+* [X] Verificar generación del `id`.
+* [X] Verificar validaciones de datos.
+* [X] Crear DTO de entrada.
+* [X] Crear DTO de respuesta.
+* [X] Implementar `ExtractionService`.
+* [X] Definir la abstracción `ExtractionRepository`.
+* [X] Implementar `InMemoryExtractionRepository`.
+* [X] Implementar endpoint `POST /extractions`.
 
 ### GET `/extractions/{id}`
 
-* [ ] Crear test para consultar una extracción existente.
-* [ ] Verificar respuesta `200 OK`.
-* [ ] Implementar consulta por ID.
-* [ ] Manejar extracción inexistente con `404 Not Found`.
+* [X] Crear test para consultar una extracción existente.
+* [X] Verificar respuesta `200 OK`.
+* [X] Implementar consulta por ID.
+* [X] Manejar extracción inexistente con `404 Not Found`.
 * [ ] Crear test para verificar el `404`.
 
 ### Refactor
 
-* [ ] Revisar separación API → Application → Infrastructure.
-* [ ] Revisar responsabilidades de cada clase.
-* [ ] Evitar que las rutas dependan directamente del repositorio concreto.
-* [ ] Revisar inyección de dependencias.
-* [ ] Revisar nombres y organización del código.
-* [ ] Mantener el código simple y sin funcionalidades innecesarias.
-* [ ] Ejecutar todos los tests y verificar que pasen.
+* [X] Revisar separación API → Application → Infrastructure.
+* [X] Revisar responsabilidades de cada clase.
+* [X] Evitar que las rutas dependan directamente del repositorio concreto.
+* [X] Revisar inyección de dependencias.
+* [X] Revisar nombres y organización del código.
+* [X] Mantener el código simple y sin funcionalidades innecesarias.
+* [X] Ejecutar todos los tests y verificar que pasen.
 
 ---
 
-## 🎯 Día Objetivo 2 — Persistencia
+## Objetivo 2 — Persistencia
 
 ### Preparar persistencia real
 
@@ -55,7 +55,7 @@
 
 ---
 
-## 🎯 Día Objetivo 3 — Integración y pruebas
+## Objetivo 3 — Integración y pruebas
 
 ### Integración
 
@@ -72,7 +72,7 @@
 
 ---
 
-## 🎯 Día Objetivo 4 — Preparación final
+## Objetivo 4 — Preparación final
 
 * [ ] Revisar estructura del proyecto.
 * [ ] Revisar código innecesario o duplicado.
@@ -85,22 +85,8 @@
 
 ---
 
-## 📌 Estado del microservicio
 
-| Funcionalidad           | Estado |
-| ----------------------- | ------ |
-| POST `/extractions`     | ⬜      |
-| GET `/extractions/{id}` | ⬜      |
-| Manejo `404`            | ⬜      |
-| DTOs                    | ⬜      |
-| Service                 | ⬜      |
-| Repository              | ⬜      |
-| Tests                   | ⬜      |
-| Persistencia real       | ⬜      |
-| Integración con Extract | ⬜      |
-| Documentación           | ⬜      |
-
-## 🔄 Forma de trabajo
+## Forma de trabajo
 
 Cada funcionalidad se desarrolla mediante:
 
