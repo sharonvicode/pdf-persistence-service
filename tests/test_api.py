@@ -1,24 +1,19 @@
 """Tests de la API."""
 
 import pytest
-from fastapi.testclient import TestClient
+
 
 from app.main import app
 
-client = TestClient(app)
 
-VALID_PAYLOAD = {
-    "file_name": "documento.pdf",
-    "text": "Texto extraído del PDF.",
-    "page_count": 3,
-}
+from tests.payloads import VALID_PAYLOAD
 
 
 def test_app_is_created():
     assert app.title == "PDF ExtractText Persistence"
 
 
-def test_create_extraction_returns_201_with_id():
+def test_create_extraction_returns_201_with_id(client):
     response = client.post("/extractions", json=VALID_PAYLOAD)
 
     assert response.status_code == 201
@@ -39,13 +34,13 @@ def test_create_extraction_returns_201_with_id():
         pytest.param({**VALID_PAYLOAD, "page_count": "tres"}, id="page_count_no_entero"),
     ],
 )
-def test_create_extraction_rejects_invalid_data_with_422(payload):
+def test_create_extraction_rejects_invalid_data_with_422(client,payload):
     response = client.post("/extractions", json=payload)
 
     assert response.status_code == 422
 
 
-def test_get_extraction_returns_200_with_stored_data():
+def test_get_extraction_returns_200_with_stored_data(client):
     created = client.post("/extractions", json=VALID_PAYLOAD)
     extraction_id = created.json()["id"]
 
@@ -53,3 +48,9 @@ def test_get_extraction_returns_200_with_stored_data():
 
     assert response.status_code == 200
     assert response.json() == {"id": extraction_id, **VALID_PAYLOAD}
+
+def test_get_extraction_returns_404_when_not_found(client):
+    response = client.get("/extractions/id-inexistente")
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Extraction not found"}
