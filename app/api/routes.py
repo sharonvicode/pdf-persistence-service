@@ -26,8 +26,8 @@ def create_extraction(
     payload: ExtractionCreate,
     service: Annotated[ExtractionService, Depends(get_extraction_service)],
 ) -> ExtractionCreated:
-    extraction_id = service.create(payload.file_name, payload.text, payload.page_count)
-    return ExtractionCreated(id=extraction_id)
+    extraction = service.create(payload.file_name, payload.text, payload.page_count)
+    return ExtractionCreated(id=extraction.id)
 
 
 @router.get("/extractions/{extraction_id}", response_model=ExtractionResponse)
@@ -40,5 +40,5 @@ def get_extraction(
     except ExtractionNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Extraction not found"
-        )
-    return ExtractionResponse(id=extraction_id, **extraction)
+        ) from None
+    return ExtractionResponse.model_validate(extraction, from_attributes=True)

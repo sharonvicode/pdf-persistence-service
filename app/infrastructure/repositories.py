@@ -1,18 +1,16 @@
 """Implementaciones de los repositorios definidos en la capa de aplicación."""
 
-from uuid import uuid4
+from app.application.services import Extraction
 
 
 class InMemoryExtractionRepository:
     """Repositorio en memoria, provisorio hasta integrar MongoDB."""
 
     def __init__(self) -> None:
-        self._extractions: dict[str, dict] = {}
+        self._extractions: dict[str, Extraction] = {}
 
-    def save(self, extraction: dict) -> str:
-        extraction_id = str(uuid4())
-        self._extractions[extraction_id] = extraction
-        return extraction_id
+    def save(self, extraction: Extraction) -> None:
+        self._extractions[extraction.id] = extraction
 
-    def get(self, extraction_id: str) -> dict | None:
+    def get(self, extraction_id: str) -> Extraction | None:
         return self._extractions.get(extraction_id)
