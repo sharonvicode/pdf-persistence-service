@@ -5,19 +5,16 @@ Solo traducen HTTP <-> casos de uso. Sin lógica de negocio.
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, Request, status
 
 from app.api.schemas import ExtractionCreate, ExtractionCreated
 from app.application.services import ExtractionService
-from app.infrastructure.repositories import InMemoryExtractionRepository
 
 router = APIRouter()
 
-_extraction_service = ExtractionService(InMemoryExtractionRepository())
 
-
-def get_extraction_service() -> ExtractionService:
-    return _extraction_service
+def get_extraction_service(request: Request) -> ExtractionService:
+    return request.app.state.extraction_service
 
 
 @router.post(
