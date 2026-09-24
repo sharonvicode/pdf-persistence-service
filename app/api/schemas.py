@@ -11,3 +11,10 @@ class ExtractionCreate(BaseModel):
 
 class ExtractionCreated(BaseModel):
     id: str
+
+
+class ExtractionResponse(BaseModel):
+    id: str
+    file_name: str
+    text: str
+    page_count: int

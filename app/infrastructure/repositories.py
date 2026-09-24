@@ -13,3 +13,6 @@ class InMemoryExtractionRepository:
         extraction_id = str(uuid4())
         self._extractions[extraction_id] = extraction
         return extraction_id
+
+    def get(self, extraction_id: str) -> dict | None:
+        return self._extractions.get(extraction_id)

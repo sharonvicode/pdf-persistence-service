@@ -11,6 +11,14 @@ class ExtractionRepository(Protocol):
         """Persiste la extracción y devuelve su identificador."""
         ...
 
+    def get(self, extraction_id: str) -> dict | None:
+        """Devuelve la extracción con ese identificador, o None si no existe."""
+        ...
+
+
+class ExtractionNotFoundError(Exception):
+    """No existe una extracción con el identificador solicitado."""
+
 
 class ExtractionService:
     def __init__(self, repository: ExtractionRepository) -> None:
@@ -20,3 +28,9 @@ class ExtractionService:
         return self._repository.save(
             {"file_name": file_name, "text": text, "page_count": page_count}
         )
+
+    def get(self, extraction_id: str) -> dict:
+        extraction = self._repository.get(extraction_id)
+        if extraction is None:
+            raise ExtractionNotFoundError(extraction_id)
+        return extraction
