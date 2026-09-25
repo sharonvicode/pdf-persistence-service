@@ -8,8 +8,10 @@ from fastapi import FastAPI
 
 from app.api.routes import router
 from app.application.services import ExtractionService
-from app.infrastructure.repositories import InMemoryExtractionRepository
+from app.infrastructure.database import get_database
+from app.infrastructure.repositories import MongoExtractionRepository
 
 app = FastAPI(title="PDF ExtractText Persistence")
-app.state.extraction_service = ExtractionService(InMemoryExtractionRepository())
+repository = MongoExtractionRepository(get_database()["extractions"])
+app.state.extraction_service = ExtractionService(repository)
 app.include_router(router)
