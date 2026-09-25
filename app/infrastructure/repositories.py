@@ -1,7 +1,8 @@
 """Implementaciones de los repositorios definidos en la capa de aplicación."""
 
-from app.application.services import Extraction
 from pymongo.collection import Collection
+
+from app.application.services import Extraction
 
 class InMemoryExtractionRepository:
     """Repositorio en memoria, usado en los tests unitarios."""
@@ -14,6 +15,7 @@ class InMemoryExtractionRepository:
 
     def get(self, extraction_id: str) -> Extraction | None:
         return self._extractions.get(extraction_id)
+
 
 class MongoExtractionRepository:
     """Repositorio que persiste las extracciones en MongoDB."""
