@@ -4,6 +4,7 @@ from pymongo.collection import Collection
 
 from app.application.services import Extraction
 
+
 class InMemoryExtractionRepository:
     """Repositorio en memoria, usado en los tests unitarios."""
 
@@ -42,4 +43,4 @@ class MongoExtractionRepository:
             file_name=document["file_name"],
             text=document["text"],
             page_count=document["page_count"],
-        )
+        )        
