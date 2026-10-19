@@ -21,7 +21,7 @@
 * [X] Verificar respuesta `200 OK`.
 * [X] Implementar consulta por ID.
 * [X] Manejar extracción inexistente con `404 Not Found`.
-* [ ] Crear test para verificar el `404`.
+* [X] Crear test para verificar el `404`.
 
 ### Refactor
 
@@ -39,19 +39,19 @@
 
 ### Preparar persistencia real
 
-* [ ] Analizar cómo reemplazar el repositorio en memoria por una persistencia real.
-* [ ] Mantener `ExtractionRepository` como abstracción.
-* [ ] Implementar el repositorio de persistencia.
-* [ ] Configurar las variables de entorno necesarias.
-* [ ] Mantener `InMemoryExtractionRepository` para los tests.
-* [ ] Verificar que POST y GET sigan funcionando.
+* [X] Analizar cómo reemplazar el repositorio en memoria por una persistencia real.
+* [X] Mantener `ExtractionRepository` como abstracción.
+* [X] Implementar el repositorio de persistencia.
+* [X] Configurar las variables de entorno necesarias.
+* [X] Mantener `InMemoryExtractionRepository` para los tests.
+* [X] Verificar que POST y GET sigan funcionando.
 
 ### Tests
 
-* [ ] Verificar creación de una extracción.
-* [ ] Verificar consulta de una extracción.
-* [ ] Verificar extracción inexistente.
-* [ ] Ejecutar todos los tests.
+* [X] Verificar creación de una extracción.
+* [X] Verificar consulta de una extracción.
+* [X] Verificar extracción inexistente.
+* [X] Ejecutar todos los tests.
 
 ---
 
