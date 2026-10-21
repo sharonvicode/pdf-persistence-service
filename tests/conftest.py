@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 from pymongo import MongoClient
 from pymongo.errors import PyMongoError
 
+from app.infrastructure.repositories import InMemoryExtractionRepository, MongoExtractionRepository
 from app.application.services import ExtractionService
 from app.infrastructure.database import EXTRACTIONS_COLLECTION, get_mongo_uri
 from app.infrastructure.repositories import InMemoryExtractionRepository
@@ -37,3 +38,9 @@ def mongo_collection():
 
     mongo_client.drop_database(TEST_DATABASE)
     mongo_client.close()
+    
+@pytest.fixture
+def mongo_api(mongo_collection):
+      """Cliente HTTP con el repositorio MongoDB sobre la base de prueba."""
+      app.state.extraction_service = ExtractionService(MongoExtractionRepository(mongo_collection))
+      return TestClient(app)

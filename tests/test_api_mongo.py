@@ -1,20 +1,6 @@
 """Tests de POST y GET usando MongoDB real."""
 
-import pytest
-from fastapi.testclient import TestClient
-
-from app.application.services import ExtractionService
-from app.infrastructure.repositories import MongoExtractionRepository
-from app.main import app
-
 from tests.payloads import VALID_PAYLOAD
-
-
-@pytest.fixture
-def mongo_api(mongo_collection):
-    app.state.extraction_service = ExtractionService(MongoExtractionRepository(mongo_collection))
-    return TestClient(app)
-
 
 def test_create_extraction_persists_in_mongo(mongo_api, mongo_collection):
     response = mongo_api.post("/extractions", json=VALID_PAYLOAD)
