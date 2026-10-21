@@ -59,16 +59,16 @@
 
 ### Integración
 
-* [ ] Revisar cómo Persistence recibirá los resultados del microservicio Extract.
-* [ ] Verificar el formato de los datos enviados.
-* [ ] Verificar que Persistence pueda guardar esos resultados.
+* [X] Revisar cómo Persistence recibirá los resultados del microservicio Extract.
+* [X] Verificar el formato de los datos enviados.
+* [X] Verificar que Persistence pueda guardar esos resultados.
 
 ### Pruebas
 
-* [ ] Revisar tests existentes.
-* [ ] Agregar solamente los tests necesarios.
-* [ ] Ejecutar todos los tests.
-* [ ] Corregir errores encontrados.
+* [X] Revisar tests existentes.
+* [X] Agregar solamente los tests necesarios.
+* [X] Ejecutar todos los tests.
+* [X] Corregir errores encontrados.
 
 ---
 
