@@ -1,8 +1,8 @@
 """Persistence guarda los resultados del Extractor sin modificarlos (MongoDB real)."""
-from tests.payloads import OVERSIZED_TEXT
 
 import pytest
 
+from tests.payloads import OVERSIZED_TEXT
 from tests.extractor_samples import EXTRACTOR_RESPONSE, to_persistence_payload
 
 LARGE_MARKDOWN = "".join(

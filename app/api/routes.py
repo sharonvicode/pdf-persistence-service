@@ -8,10 +8,8 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 
 from app.api.schemas import ExtractionCreate, ExtractionCreated, ExtractionResponse
-from app.application.services import ExtractionNotFoundError, ExtractionService
 
 from app.application.services import ExtractionNotFoundError, ExtractionService, ExtractionTooLargeError
-
 
 router = APIRouter()
 

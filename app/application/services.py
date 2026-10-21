@@ -18,6 +18,7 @@ class Extraction:
 
 class ExtractionNotFoundError(Exception):
     """No existe una extracción con el identificador solicitado."""
+    
 class ExtractionTooLargeError(Exception):
     """La extracción supera el tamaño máximo que se puede guardar."""
 

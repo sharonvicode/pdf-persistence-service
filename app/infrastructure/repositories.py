@@ -5,6 +5,7 @@ from pymongo.errors import DocumentTooLarge
 
 from app.application.services import Extraction, ExtractionTooLargeError
 
+
 class InMemoryExtractionRepository:
     """Repositorio en memoria, usado en los tests unitarios."""
 

@@ -1,4 +1,5 @@
 """Tests del repositorio MongoDB (necesitan MongoDB levantado)."""
+
 import pytest
 
 from app.application.services import Extraction, ExtractionTooLargeError
