@@ -1,4 +1,5 @@
 """Persistence guarda los resultados del Extractor sin modificarlos (MongoDB real)."""
+from tests.payloads import OVERSIZED_TEXT
 
 import pytest
 
@@ -55,3 +56,10 @@ def test_ignores_extra_extractor_metadata(mongo_api):
     response = save_and_get(mongo_api, payload)
 
     assert "tamanio_bytes" not in response.json()
+    
+def test_rejects_text_larger_than_mongo_limit_with_413(mongo_api):
+    payload = {**to_persistence_payload(EXTRACTOR_RESPONSE), "text": OVERSIZED_TEXT}
+
+    response = mongo_api.post("/extractions", json=payload)
+
+    assert response.status_code == 413
