@@ -10,6 +10,9 @@ from fastapi import APIRouter, Depends, HTTPException, Request, status
 from app.api.schemas import ExtractionCreate, ExtractionCreated, ExtractionResponse
 from app.application.services import ExtractionNotFoundError, ExtractionService
 
+from app.application.services import ExtractionNotFoundError, ExtractionService, ExtractionTooLargeError
+
+
 router = APIRouter()
 
 
@@ -26,7 +29,12 @@ def create_extraction(
     payload: ExtractionCreate,
     service: Annotated[ExtractionService, Depends(get_extraction_service)],
 ) -> ExtractionCreated:
-    extraction = service.create(payload.file_name, payload.text, payload.page_count)
+    try:
+        extraction = service.create(payload.file_name, payload.text, payload.page_count)
+    except ExtractionTooLargeError:
+        raise HTTPException(
+            status_code=status.HTTP_413_CONTENT_TOO_LARGE, detail="Extraction too large"
+        ) from None
     return ExtractionCreated(id=extraction.id)
 
 

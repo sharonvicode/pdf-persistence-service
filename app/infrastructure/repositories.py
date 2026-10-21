@@ -1,9 +1,9 @@
 """Implementaciones de los repositorios definidos en la capa de aplicación."""
 
 from pymongo.collection import Collection
+from pymongo.errors import DocumentTooLarge
 
-from app.application.services import Extraction
-
+from app.application.services import Extraction, ExtractionTooLargeError
 
 class InMemoryExtractionRepository:
     """Repositorio en memoria, usado en los tests unitarios."""
@@ -25,14 +25,17 @@ class MongoExtractionRepository:
         self._collection = collection
 
     def save(self, extraction: Extraction) -> None:
-        self._collection.insert_one(
-            {
-                "_id": extraction.id,
-                "file_name": extraction.file_name,
-                "text": extraction.text,
-                "page_count": extraction.page_count,
-            }
-        )
+        try:
+            self._collection.insert_one(
+                {
+                    "_id": extraction.id,
+                    "file_name": extraction.file_name,
+                    "text": extraction.text,
+                    "page_count": extraction.page_count,
+                }
+            )
+        except DocumentTooLarge as error:
+            raise ExtractionTooLargeError(extraction.id) from error
 
     def get(self, extraction_id: str) -> Extraction | None:
         document = self._collection.find_one({"_id": extraction_id})
