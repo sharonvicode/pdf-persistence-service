@@ -12,6 +12,7 @@ import logging
 from fastapi.testclient import TestClient
 from app.main import app
 import pytest
+from dataclasses import replace
 
 from app.infrastructure.service_registry import (
     ConsulRegistry,
@@ -25,6 +26,7 @@ REGISTRATION = ServiceRegistration(
     name="persistence",
     address="172.18.0.5",
     port=8000,
+    tags=("traefik.enable=true",),
 )
 
 
@@ -81,6 +83,7 @@ def test_registers_the_service_with_a_health_check(consul):
                 "Name": "persistence",
                 "Address": "172.18.0.5",
                 "Port": 8000,
+                "Tags": ["traefik.enable=true"],
                 "Check": {
                     "HTTP": "http://172.18.0.5:8000/health",
                     "Interval": "10s",
@@ -124,8 +127,9 @@ def test_build_registration_defaults(monkeypatch):
     monkeypatch.setattr(socket, "gethostbyname", lambda host: "172.18.0.5")
     monkeypatch.delenv("CONSUL_SERVICE_NAME", raising=False)
     monkeypatch.delenv("SERVICE_PORT", raising=False)
+    monkeypatch.delenv("CONSUL_SERVICE_TAGS", raising=False)
 
-    assert build_registration() == REGISTRATION
+    assert build_registration() == replace(REGISTRATION, tags=())
     
 
 def test_registers_on_startup_and_deregisters_on_shutdown(consul, monkeypatch):
