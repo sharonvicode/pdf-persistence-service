@@ -5,7 +5,7 @@ services:
     image: hashicorp/consul:1.21
     command: agent -dev -client=0.0.0.0
     ports:
-      - "8500:8500"
+      - "127.0.0.1:8500:8500"
     healthcheck:
       test: ["CMD", "consul", "members"]
       interval: 5s
@@ -27,7 +27,14 @@ services:
       MONGODB_URI: mongodb://mongo:27017
       MONGODB_DATABASE: pdf_extractext
     ports:
-      - "8003:8000"
+      - "127.0.0.1:8003:8000"
+    # Endurecimiento: sin capacidades Linux, sin escalada por SUID y
+    # filesystem de solo lectura (la app no escribe en disco).
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
     depends_on:
       consul:
         condition: service_healthy

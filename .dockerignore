@@ -7,8 +7,8 @@ venv/
 env/
 
 # Cachés y artefactos de Python y pruebas
-__pycache__/
-*.py[cod]
+**/__pycache__/
+**/*.py[cod]
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/

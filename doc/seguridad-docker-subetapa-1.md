@@ -18,7 +18,7 @@ Se creó `.dockerignore` en la raíz del contexto de construcción. Sus reglas s
 | --- | --- |
 | `.git/` | El historial y metadatos de Git no se usan para construir ni ejecutar el servicio. |
 | `.venv/`, `venv/`, `env/` | Son entornos locales; la imagen crea su propia virtualenv mediante `uv sync`. |
-| `__pycache__/`, `*.py[cod]` | Son bytecode y cachés generados localmente, no código fuente. |
+| `**/__pycache__/`, `**/*.py[cod]` | Son bytecode y cachés generados localmente, no código fuente. El prefijo `**/` se agregó en la auditoría final: sin él, las reglas sólo aplicaban a la raíz del contexto y no a `app/`. |
 | `.pytest_cache/`, `.mypy_cache/`, `.ruff_cache/`, `.coverage`, `htmlcov/` | Son resultados y cachés de herramientas de calidad y pruebas. |
 | `.env`, `.env.*` | Evitan enviar configuraciones locales que pueden contener secretos. |
 | `!.env.example` | Conserva la plantilla versionada, que no contiene secretos y documenta variables esperadas. |
