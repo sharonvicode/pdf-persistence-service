@@ -26,4 +26,5 @@ testpaths = ["tests"]
 dev = [
     "httpx2>=2.13.1",
     "pytest>=8.0",
+    "pyyaml>=6.0.3",
 ]
