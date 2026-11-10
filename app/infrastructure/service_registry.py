@@ -4,6 +4,7 @@ Solo infraestructura: la lógica de negocio no sabe nada de Consul.
 """
 
 import os
+import json
 import socket
 from dataclasses import dataclass
 
@@ -24,6 +25,7 @@ class ServiceRegistration:
     name: str
     address: str
     port: int
+    tags: tuple[str, ...] = ()
 
 
 def get_consul_url() -> str | None:
@@ -40,6 +42,7 @@ def build_registration() -> ServiceRegistration:
         name=name,
         address=socket.gethostbyname(hostname),
         port=int(os.getenv("SERVICE_PORT", DEFAULT_SERVICE_PORT)),
+        tags=tuple(json.loads(os.getenv("CONSUL_SERVICE_TAGS", "[]"))),
     )
 
 
@@ -58,6 +61,7 @@ class ConsulRegistry:
                 "Name": registration.name,
                 "Address": registration.address,
                 "Port": registration.port,
+                "Tags": list(registration.tags),
                 "Check": {
                     "HTTP": f"http://{registration.address}:{registration.port}/health",
                     "Interval": "10s",

@@ -118,6 +118,7 @@ def test_build_registration_uses_hostname_and_env(monkeypatch):
     monkeypatch.setattr(socket, "gethostbyname", lambda host: "172.18.0.5")
     monkeypatch.setenv("CONSUL_SERVICE_NAME", "persistence")
     monkeypatch.setenv("SERVICE_PORT", "8000")
+    monkeypatch.setenv("CONSUL_SERVICE_TAGS", '["traefik.enable=true"]')
 
     assert build_registration() == REGISTRATION
 
