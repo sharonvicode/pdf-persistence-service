@@ -54,3 +54,10 @@ def test_get_extraction_returns_404_when_not_found(client):
 
     assert response.status_code == 404
     assert response.json() == {"detail": "Extraction not found"}
+
+
+def test_health_returns_ok(client):
+    response = client.get("/health")
+
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
