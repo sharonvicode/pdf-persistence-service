@@ -74,14 +74,14 @@
 
 ## Objetivo 4 — Preparación final
 
-* [ ] Revisar estructura del proyecto.
-* [ ] Revisar código innecesario o duplicado.
-* [ ] Revisar nombres y responsabilidades.
-* [ ] Verificar manejo de errores.
-* [ ] Verificar respuestas HTTP.
-* [ ] Ejecutar todos los tests.
-* [ ] Revisar documentación básica.
-* [ ] Preparar commit final.
+* [X] Revisar estructura del proyecto.
+* [X] Revisar código innecesario o duplicado.
+* [X] Revisar nombres y responsabilidades.
+* [X] Verificar manejo de errores.
+* [X] Verificar respuestas HTTP.
+* [X] Ejecutar todos los tests.
+* [X] Revisar documentación básica.
+* [X] Preparar commit final.
 
 ---
 
@@ -92,6 +92,6 @@ Cada funcionalidad se desarrolla mediante:
 
 **RED → GREEN → REFACTOR**
 
-* [ ] 🔴 **RED:** crear el test y comprobar que falla por el motivo correcto.
-* [ ] 🟢 **GREEN:** implementar lo mínimo necesario para que pase.
-* [ ] 🔵 **REFACTOR:** mejorar el código sin cambiar el comportamiento.
+* [X] 🔴 **RED:** crear el test y comprobar que falla por el motivo correcto.
+* [X] 🟢 **GREEN:** implementar lo mínimo necesario para que pase.
+* [X] 🔵 **REFACTOR:** mejorar el código sin cambiar el comportamiento.

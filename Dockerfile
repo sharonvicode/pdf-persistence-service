@@ -1,10 +1,19 @@
 FROM python:3.12-slim
 
+COPY --from=ghcr.io/astral-sh/uv:0.11 /uv /bin/uv
+
+ENV PYTHONUNBUFFERED=1 \
+    UV_LINK_MODE=copy \
+    PATH="/service/.venv/bin:$PATH"
+
+
 WORKDIR /service
 
-COPY pyproject.toml README.md ./
+
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev --no-install-project
+
 COPY app ./app
-RUN pip install --no-cache-dir .
 
 EXPOSE 8000
 
