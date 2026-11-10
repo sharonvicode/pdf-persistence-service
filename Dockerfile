@@ -18,10 +18,15 @@ RUN uv sync --frozen --no-dev --no-install-project
 
 FROM base AS runtime
 
+RUN groupadd --system appgroup \
+    && useradd --system --gid appgroup --no-create-home appuser
+
 COPY --from=builder /service/.venv /service/.venv
 
 COPY app ./app
 
 EXPOSE 8000
+
+USER appuser
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
