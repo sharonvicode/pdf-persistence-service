@@ -1,0 +1,37 @@
+# Control de versiones
+.git/
+
+# Entornos locales de Python
+.venv/
+venv/
+env/
+
+# Cachés y artefactos de Python y pruebas
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Configuración local que puede contener secretos
+.env
+.env.*
+!.env.example
+
+# Archivos de desarrollo no usados por el Dockerfile actual
+tests/
+doc/
+README.md
+TASKS.md
+docker-compose.yml
+
+# Archivos temporales y configuración de IDE/SO
+*.log
+*.tmp
+*.swp
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
