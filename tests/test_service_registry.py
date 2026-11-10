@@ -8,7 +8,9 @@ import json
 import socket
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-
+import logging
+from fastapi.testclient import TestClient
+from app.main import app
 import pytest
 
 from app.infrastructure.service_registry import (
@@ -124,3 +126,39 @@ def test_build_registration_defaults(monkeypatch):
     monkeypatch.delenv("SERVICE_PORT", raising=False)
 
     assert build_registration() == REGISTRATION
+    
+
+def test_registers_on_startup_and_deregisters_on_shutdown(consul, monkeypatch):
+    monkeypatch.setenv("CONSUL_URL", consul.url)
+
+    with TestClient(app):
+        assert [path for path, _ in consul.received] == ["/v1/agent/service/register"]
+
+    assert consul.received[-1][0].startswith("/v1/agent/service/deregister/persistence-")
+
+
+def test_without_consul_url_does_not_register(consul, monkeypatch):
+    monkeypatch.delenv("CONSUL_URL", raising=False)
+
+    with TestClient(app) as client:
+        assert client.get("/health").status_code == 200
+
+    assert consul.received == []
+
+
+def test_does_not_start_when_consul_is_unreachable(monkeypatch):
+    monkeypatch.setenv("CONSUL_URL", "http://127.0.0.1:1")
+
+    with pytest.raises(ServiceRegistryError):
+        with TestClient(app):
+            pass
+
+
+def test_failed_deregistration_does_not_break_shutdown(consul, monkeypatch, caplog):
+    monkeypatch.setenv("CONSUL_URL", consul.url)
+
+    with caplog.at_level(logging.WARNING):
+        with TestClient(app):
+            consul.answer_with(500)
+
+    assert "Consul" in caplog.text
