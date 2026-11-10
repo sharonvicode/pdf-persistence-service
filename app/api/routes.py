@@ -48,3 +48,7 @@ def get_extraction(
             status_code=status.HTTP_404_NOT_FOUND, detail="Extraction not found"
         ) from None
     return ExtractionResponse.model_validate(extraction, from_attributes=True)
+
+@router.get("/health")
+def health() -> dict[str, str]:
+    return {"status": "ok"}
